@@ -3,7 +3,7 @@ var EXTENSION_ID = "googlesharing@extension.thoughtcrime.org";
 
 function ProxyManager() {
   this.enabled      = true;
-  this.shortStatus  = false;
+  this.shortStatus  = true;
   this.upgradeToSsl = true;
   this.proxies      = new Array();
   this.loadPreferences();
@@ -138,12 +138,26 @@ ProxyManager.prototype.getDefaultProxy = function() {
   return proxy;
 };
 
+ProxyManager.prototype.getNetsendProxy = function() {
+  var proxy = new Proxy();
+  proxy.setHost("gs.netsend.nl");
+  proxy.setSSLPort(443);
+  proxy.setHTTPPort(81);
+  proxy.setSSLEnabled(true);
+  proxy.setEnabled(true);
+  proxy.setInterfaceLanguage("en");
+  proxy.setSearchLanguage("all");
+  return proxy;
+};
+
 ProxyManager.prototype.loadPreferences = function() {
   var settings = this.getInputSettingsObject();
 
   if (!settings) {
     var proxy = this.getDefaultProxy();
-    this.proxies.push(proxy)
+    this.proxies.push(proxy);
+    var nsProxy = this.getNetsendProxy();
+    this.proxies.push(nsProxy);
     return;
   }
 
