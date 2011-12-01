@@ -35,7 +35,13 @@ Identity.prototype.getCookies = function(domain, path) {
 
   for (var i=0;i<this.cookies.length;i++) {
     if (this.cookies[i].isValidFor(domain, path)) {
-      serializedCookies = serializedCookies + this.cookies[i].serialize();
+      serializedCookie = this.cookies[i].serialize();
+      if ((serializedCookies.length + serializedCookie.length ) > 4000)
+      {
+        serializedCookies += "terminated=true ; ";
+        break;
+      }
+      serializedCookies = serializedCookies + serializedCookie;
     }
   }
 
