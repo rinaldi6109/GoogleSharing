@@ -1,0 +1,28 @@
+INSTALLATION
+============
+(tested on Ubuntu Server 10.04.3)
+
+# Install Twisted and Git: 
+sudo apt-get install python-twisted git-core
+
+# Clone the GoogleSharing repository:
+git clone https://github.com/timkuijsten/GoogleSharing.git
+
+# Build and install GoogleSharing:
+cd GoogleSharing/server
+sudo python setup.py install
+
+# Create a SSL key and certificate file, either self signed or signed by a CA.
+# For instructions see:
+# https://help.ubuntu.com/10.04/serverguide/C/certificates-and-security.html
+#  * install your ssl key in /etc/ssl/private/googlesharing.key 
+#  * install your ssl certificate in /etc/ssl/certs/googlesharing.pem
+
+# Start GoogleSharing Proxy (defaults to port 80 and 443):
+sudo googleshare
+
+# Make sure it starts on system startup:
+sudo update-rc.d googleshare defaults
+
+
+# For more options see `googleshare -h`.
